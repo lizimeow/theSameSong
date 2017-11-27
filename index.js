@@ -5,7 +5,7 @@ const app = express()
 const http = require('http').Server(app)
 const socket = require('socket.io')
 const io = socket(http)
-const crawl = require('./crawl')
+const qqCrawl = require('./crawl/qqCrawl')
 let curMusic = ''
 let usersNum = 0
 
@@ -32,7 +32,9 @@ io.on('connection', (socket) => {
     })
 
     socket.on('submit', async (name) => {
-        const songList = await crawl(name)
+        // const songList = await crawl(name)
+        let qq = new qqCrawl(1,12)
+        let songList = await qq.fetchData(name)
         io.emit('change', songList)
     })
 
