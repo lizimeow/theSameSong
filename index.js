@@ -19,22 +19,22 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected')
-    usersNum++
-    socket.emit('onlineUser', usersNum)
+    io.emit('onlineUser', ++usersNum)
     console.log('the current number of online number:', usersNum)    
     if (curMusic) {
         socket.emit('changePlay', curMusic)
     }
 
     socket.on('disconnect', () => {
-        usersNum--
+        io.emit('onlineUser', --usersNum)
         console.log('a user disconnected')
     })
 
     socket.on('submit', async (name) => {
         // const songList = await crawl(name)
-        let qq = new qqCrawl(1,12)
-        let songList = await qq.fetchData(name)
+        const qq = new qqCrawl(1, 15)
+        const songList = await qq.fetchData(name)
+        console.log(songList)
         io.emit('change', songList)
     })
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node test/qqCrawl.test.js",
+    "test": "jest",
     "start": "node index.js"
   },
   "author": "",
@@ -13,5 +13,20 @@
     "axios": "^0.17.1",
     "express": "^4.16.2",
     "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "jest": "^21.2.1"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/test/spec_helper.ts"
+    ],
+    "testMatch": [
+      "**/test/*.js"
+    ]
   }
 }

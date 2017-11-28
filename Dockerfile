@@ -1,5 +1,4 @@
 FROM daocloud.io/node:8  
-MAINTAINER lizimeowww
 
 ENV HTTP_PORT 3001
 

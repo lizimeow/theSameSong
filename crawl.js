@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const curPage = 1
-const songNum = 12
+const songNum = 20
 
 function encode(str) {
     return encodeURIComponent(str)
