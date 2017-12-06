@@ -48,7 +48,7 @@
   height: 36px;
   line-height: 36px;
   padding-left: 10px;
-} 
+}
 .list li:hover {
   background-color: #ccc;
   cursor: pointer;
@@ -72,7 +72,7 @@
 .submit {
     width: 25%;
     float: right;
-  
+
     /* flex: 1; */
     /* margin-left: 10px; */
     height: 30px;
@@ -87,7 +87,7 @@
     color: #666;
     text-align: center;
     margin: 0;
-    
+
 }
 .tip {
     font-size: 24px;
@@ -96,7 +96,7 @@
     margin: 10px 0;
 }
 audio {
-    opacity: 0;
+    opacity: 1;
     position: relative;
     left: 50%;
     transform: translateX(-50%);

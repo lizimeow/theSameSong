@@ -8,6 +8,8 @@ const io = socket(http)
 const qqCrawl = require('./crawl/qqCrawl')
 let curMusic = ''
 let usersNum = 0
+//保存播放列表
+let playQueue = []
 
 app.use(express.static(__dirname + '/statics'))
 
@@ -20,10 +22,12 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('a user connected')
     io.emit('onlineUser', ++usersNum)
-    console.log('the current number of online number:', usersNum)    
+    console.log('the current number of online number:', usersNum)
     if (curMusic) {
         socket.emit('changePlay', curMusic)
     }
+    socket.emit('updatePlayingSongs', playQueue)
+
 
     socket.on('disconnect', () => {
         io.emit('onlineUser', --usersNum)
@@ -42,9 +46,19 @@ io.on('connection', (socket) => {
         curMusic = e
         io.emit('changePlay', e)
     })
+
+    socket.on('addSong', (data)=>{
+      playQueue.push(data)
+      io.emit('updatePlayingSongs', playQueue)
+    })
+
+    socket.on('removeSong', (data) => {
+      playQueue.splice(data.index, 1)
+      io.emit('updatePlayingSongs',playQueue)
+    })
 })
 
-const port = process.env.HTTP_PORT || 3001 
+const port = process.env.HTTP_PORT || 3001
 http.listen(port, () => {
     console.log('listening on *:' + port)
 })
