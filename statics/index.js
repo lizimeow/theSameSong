@@ -102,7 +102,7 @@ audioElm.onended = function(e) {
   const src = e.target.src
   let index = 0;
   for (let i; i< playQueue.list.length ;i++) {
-    if (src === playQueue[i].url) {
+    if (src === playQueue.list[i].url) {
       index =i
       break
     }
