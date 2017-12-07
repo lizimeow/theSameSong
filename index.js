@@ -49,12 +49,13 @@ io.on('connection', (socket) => {
 
     socket.on('addSong', (data)=>{
       playQueue.push(data)
-      io.emit('updatePlayingSongs', playQueue)
+      // io.emit('updatePlayingSongs', playQueue)
+      io.emit('addSong', data)
     })
 
     socket.on('removeSong', (data) => {
       playQueue.splice(data.index, 1)
-      io.emit('updatePlayingSongs',playQueue)
+      io.emit('removeSong',data.index)
     })
 })
 

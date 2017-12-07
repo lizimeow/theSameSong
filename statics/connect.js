@@ -1,4 +1,4 @@
-class connect {
+class Connect {
   constructor(socket) {
     this.socket = socket
   }
@@ -19,4 +19,4 @@ class connect {
   }
 }
 
-module.exports = connect
+// module.exports = Connect
