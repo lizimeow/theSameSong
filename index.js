@@ -38,8 +38,8 @@ io.on('connection', (socket) => {
         // const songList = await crawl(name)
         const qq = new qqCrawl(1, 15)
         const songList = await qq.fetchData(name)
-        console.log(songList)
-        io.emit('change', songList)
+        // console.log(songList)
+        io.emit('getSearchList', songList)
     })
 
     socket.on('play', (e) => {
@@ -47,15 +47,22 @@ io.on('connection', (socket) => {
         io.emit('changePlay', e)
     })
 
-    socket.on('addSong', (data)=>{
-      playQueue.push(data)
-      // io.emit('updatePlayingSongs', playQueue)
-      io.emit('addSong', data)
+    socket.on('addSong', (data) => {
+        playQueue.push(data)
+        // io.emit('updatePlayingSongs', playQueue)
+        io.emit('addSong', data)
     })
 
-    socket.on('removeSong', (data) => {
-      playQueue.splice(data.index, 1)
-      io.emit('removeSong',data.index)
+    socket.on('removeSong', data => {
+        if (data.all) {
+            playQueue = []
+        } else {
+            playQueue.splice(data.index, 1)
+        }
+        io.emit('removeSong', data)
+    })
+    socket.on('clearSearchList', () => {
+        io.emit('clearSearchList')
     })
 })
 

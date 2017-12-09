@@ -1,38 +1,38 @@
 class Player {
-  constructor(elm,options={}) {
+  constructor(elm, options={}) {
     this.rootElm = elm
     this.playingQueue = []
     this.currentIndex = 0
     this.audioElm = this.createAudioNode()
-    elm.appendChild(this.audioElm)
+    this.rootElm.appendChild(this.audioElm)
 
-    this._playListNode = this.createPlayListNode(options.liClickCallback,options.removeCallback)
-    elm.appendChild(this._playListNode)
+    this._playListNode = this.createPlayListNode(options.liClickCallback, options.removeCallback)
+    this.rootElm.appendChild(this._playListNode)
 
     this._nameElement = this.createNameNode()
-    elm.appendChild(this._nameElement)
+    this.rootElm.appendChild(this._nameElement)
   }
   createAudioNode() {
     let audio = document.createElement('audio')
     audio.setAttribute('autoplay', true)
     audio.setAttribute('controls', true)
     // audio.setAttribute('muted', true)
-    audio.onended = (e)=> {
+    audio.onended = (e) => {
       this.next()
     }
     return audio
   }
-  createPlayListNode(cb,removeCallback) {
+  createPlayListNode(cb, removeCallback) {
     let elm = document.createElement('ul')
-    elm.addEventListener('click',(e)=>{
-      if(e.target.matches('li')){
+    elm.addEventListener('click',(e) => {
+      if (e.target.matches('li')) {
         const index = e.target.dataset.index
         this.currentIndex = index
-        typeof cb == 'function' && cb({url:e.target.dataset.url,name:e.target.dataset.name})
+        typeof cb == 'function' && cb({url:e.target.dataset.url, name:e.target.dataset.name})
       }
-      if(e.target.matches('span')){
+      if (e.target.matches('span')) {
         const index = e.target.dataset.index
-        console.log('player remove'+index);
+        console.log('player remove'+index)
         removeCallback(index)
       }
     })
@@ -54,7 +54,7 @@ class Player {
     return true
   }
   remove(index) {
-    this.playingQueue.splice(index,1)
+    this.playingQueue.splice(index, 1)
     this.updatePlayList()
     return true
   }
@@ -71,6 +71,7 @@ class Player {
   }
   clear() {
     this.playingQueue = []
+    this.updatePlayList()
     return true
   }
   setPlayList(data) {

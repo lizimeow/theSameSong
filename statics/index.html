@@ -18,24 +18,25 @@
     </div>
     <p class="tip"></p>
     <div class="play-info"><span class="song-name"></span></div>
-    <ul class="list"></ul>
-    <ul class="play-list">
-
-    </ul>
+    <div class="">
+      搜索列表 <button id="searchPlayList" style="color:red">清空搜索列表</button>
+    </div>
+    <ul class="search-list"></ul>
+    <!-- <ul class="play-list"></ul> -->
 
     <div class="">
-      播放列表
+      播放列表 <button id="clearPlayList" style="color:red">清空播放列表</button>
     </div>
-    <ul class="playing-list">
-
-    </ul>
+    <!-- <ul class="playing-list">
+    </ul> -->
     <div class="" id="myPlayer"></div>
     <!-- <audio id="audio" src="" controls autoplay></audio> -->
 
     <script src="/socket.io/socket.io.js"></script>
-<script src="./player.js"></script>
-<!-- <script src="./connect.js"></script> -->
-<script src="./index.js"></script>
+    <script src="./player.js"></script>
+    <script src="./searchList.js"></script>
+    <!-- <script src="./connect.js"></script> -->
+    <script src="./index.js"></script>
 
   </body>
 </html>

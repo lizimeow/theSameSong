@@ -2,10 +2,12 @@ FROM daocloud.io/node:8
 
 ENV HTTP_PORT 3001
 
-COPY . /app  
+COPY ./package.json /app  
 WORKDIR /app
 
 RUN npm install --registry=https://registry.npm.taobao.org
+
+COPY . /app
 
 EXPOSE 3001
 

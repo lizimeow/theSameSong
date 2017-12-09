@@ -1,14 +1,15 @@
 /**
  * Created by zj-db0818 on 2017/11/26.
  */
-const elm = document.getElementById('submit')
+const searchBtn = document.getElementById('submit')
 const inputElm = document.querySelector('.name-input')
 const songName = document.querySelector('.song-name')
 const audioElm = document.getElementById('audio')
-const list = document.querySelector('.list')
 const playingList = document.querySelector('.playing-list')
 const tip = document.querySelector('.tip')
 const userNum = document.querySelector('.user')
+const clearPlayListBtn = document.querySelector('#clearPlayList')
+const searchPlayListBtn = document.querySelector('#searchPlayList')
 
 const socket = io()
 
@@ -20,57 +21,64 @@ const opts = {
     socket.emit('removeSong', {index})
   }
 }
+const searchOpts = {
+    playCallback(data) {
+        socket.emit('play', data)
+      },
+    addSongCallback(data) {
+        socket.emit('addSong', data)
+    }
+}
 
-let myPlayer = new Player(document.getElementById('myPlayer'),opts)
+const myPlayer = new Player(document.getElementById('myPlayer'), opts)
+const mySearchList = new SearchList(document.querySelector('.search-list'), searchOpts)
 
 
 socket.on('onlineUser', (data) => {
     // console.log('data', data)
     userNum.innerText = '当前在线人数 : ' + data
 })
-socket.on('updatePlayingSongs',data=>{
+socket.on('updatePlayingSongs', data => {
   myPlayer.setPlayList(data)
 })
-socket.on('change', (data) => {
-    elm.innerText = 'go!'
-    if (!data.length) {
+socket.on('getSearchList', list => {
+    searchBtn.innerText = 'go!'
+    if (!list.length) {
         tip.innerText = 'Not fonud anything...'
         return false
     }
-    tip.innerText = 'click the song below to play!!!'
-    const str = data.map(song => {
-        return `<li data-url="${song.url}" data-name="${song.singer} - ${song.name}">${song.singer} - ${song.name} <span style="color:red">添加</span></li>`
-    }).join('')
-    list.innerHTML = str
+    mySearchList.initList(list)
 })
 socket.on('changePlay', (data) => {
-    console.log('data', data)
+    console.log('data111', data)
     myPlayer.play(data)
 })
 //
-socket.on('addSong', data=>{
-  myPlayer.add(data)
+socket.on('addSong', data => {
+    myPlayer.add(data)
 })
-socket.on('removeSong',index=>{
-  myPlayer.remove(index)
+socket.on('removeSong', data => {
+    data.all ? myPlayer.clear() : myPlayer.remove(data.index)
 })
-list.addEventListener('click', (e) => {
-    if (e.target.matches('li')) {
-        // console.log('??', e.target.dataset.url)
-        socket.emit('play', {url: e.target.dataset.url, name: e.target.dataset.name})
-    }
+socket.on('clearSearchList', () => {
+    mySearchList.clear()
+})
 
-    if (e.target.matches('span')) {
-      const pNode = e.target.parentElement
-      socket.emit('addSong',{url: pNode.dataset.url, name: pNode.dataset.name})
-    }
-})
-elm.addEventListener('click', (e) => {
-    if (elm.innerText === 'wait...') {
+searchBtn.addEventListener('click', (e) => {
+    if (searchBtn.innerText === 'wait...') {
         console.log('no')
         return false
     }
     const name = inputElm.value
     socket.emit('submit', name)
-    elm.innerText = 'wait...'
+    searchBtn.innerText = 'wait...'
 })
+
+clearPlayListBtn.addEventListener('click', e => {
+    socket.emit('removeSong', {index: 0, all: true})
+})
+
+searchPlayListBtn.addEventListener('click', e => {
+    socket.emit('clearSearchList')
+})
+
