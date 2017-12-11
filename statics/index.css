@@ -1,5 +1,5 @@
 .title {
-    font-size: 38px;
+    font-size: 30px;
     text-align: center;
 }
 .search-box {
@@ -37,7 +37,7 @@
 #myPlayer ul li {  
     list-style-type: none;
 }
-.search-list {
+.search-list ul {
   max-width: 1000px;
   width: 100%;
   height: auto;

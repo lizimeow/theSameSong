@@ -1,33 +1,40 @@
 class SearchList {
     constructor(root, options) {
-        this._rootElm = root
-        this._playCallback = options.playCallback
-        this._addSongCallback = options.addSongCallback
-        this.list = []
+        this.searchList = []
+        this._searchListNode = this.createSearchListNode(options.playCallback, options.addSongCallback)
+        root.appendChild(this._searchListNode)
     }
-    render() {
-        const str = this.list.map(song => {
-            return `<li data-url="${song.url}" data-name="${song.singer} - ${song.name}">${song.singer} - ${song.name} <span>添加</span></li>`
-        }).join('')
-        this._rootElm.innerHTML = str
-        this._rootElm.addEventListener('click', e => {
+    createSearchListNode(playCb, addSongCb) {
+        const elm = document.createElement('ul')        
+        elm.addEventListener('click', e => {
             if (e.target.matches('li')) {
                 const {url, name} = e.target.dataset
-                typeof this._playCallback == 'function' && this._playCallback({url, name})
+                typeof playCb == 'function' && playCb({url, name})
+                const current = true
+                typeof addSongCb == 'function' && addSongCb({url, name, current})
             }
         
             if (e.target.matches('span')) {
               const pNode = e.target.parentElement
               const {url, name} = pNode.dataset
-              typeof this._addSongCallback == 'function' && this._addSongCallback({url, name})
+              typeof addSongCb == 'function' && addSongCb({url, name})
             }
         })
+        return elm
+    }
+    updateSearchList() {
+            const str = this.searchList.map(song => {
+                return `<li data-url="${song.url}" data-name="${song.singer} - ${song.name}">${song.singer} - ${song.name} <span>添加</span></li>`
+            }).join('')
+            this._searchListNode.innerHTML = str
     }
     initList(data) {
-        this.list = data
-        this.render()
+        this.searchList = data
+        this.updateSearchList()
     }
     clear() {
-        this.initList([])
+        this.searchList = []
+        this.updateSearchList()
+        return true
     }
 }

@@ -43,7 +43,7 @@ socket.on('updatePlayingSongs', data => {
 })
 socket.on('getSearchList', list => {
     searchBtn.innerText = 'go!'
-    if (!list.length) {
+    if (!list && !list.length) {
         tip.innerText = 'Not fonud anything...'
         return false
     }

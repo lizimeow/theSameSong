@@ -43,12 +43,15 @@ class Player {
     return elm
   }
   updatePlayList() {
-    const str = this.playingQueue.map((song,index) => {
+    const str = this.playingQueue.map((song, index) => {
         return `<li data-url="${song.url}" data-name="${song.name}" data-index="${index}">${index}.${song.name}<span data-index="${index}" style="color:red">删除</span></li>`
     }).join('')
     this._playListNode.innerHTML = str
   }
   add(data) {
+    if (data.current) {
+      this.currentIndex = this.playingQueue.length
+    }
     this.playingQueue.push(data)
     this.updatePlayList()
     return true
