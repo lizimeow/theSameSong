@@ -9,8 +9,8 @@ class SearchList {
         elm.addEventListener('click', e => {
             if (e.target.matches('li')) {
                 const {url, name} = e.target.dataset
-                typeof playCb == 'function' && playCb({url, name})
                 const current = true
+                typeof playCb == 'function' && playCb({url, name, current})
                 typeof addSongCb == 'function' && addSongCb({url, name, current})
             }
         

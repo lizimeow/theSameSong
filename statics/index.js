@@ -15,7 +15,7 @@ const socket = io()
 
 const opts = {
   liClickCallback(data) {
-    socket.emit('play', {url: data.url, name: data.name})
+    socket.emit('play', data)
   },
   removeCallback(index) {
     socket.emit('removeSong', {index})

@@ -5,8 +5,9 @@ class Player {
     this.currentIndex = 0
     this.audioElm = this.createAudioNode()
     this.rootElm.appendChild(this.audioElm)
+    this.playCb = options.liClickCallback
 
-    this._playListNode = this.createPlayListNode(options.liClickCallback, options.removeCallback)
+    this._playListNode = this.createPlayListNode(this.playCb, options.removeCallback)
     this.rootElm.appendChild(this._playListNode)
 
     this._nameElement = this.createNameNode()
@@ -26,13 +27,13 @@ class Player {
     let elm = document.createElement('ul')
     elm.addEventListener('click',(e) => {
       if (e.target.matches('li')) {
-        const index = e.target.dataset.index
+        const {url, name, index} = e.target.dataset
         this.currentIndex = index
-        typeof cb == 'function' && cb({url:e.target.dataset.url, name:e.target.dataset.name})
+        typeof cb == 'function' && cb({url, name, index})
       }
       if (e.target.matches('span')) {
         const index = e.target.dataset.index
-        console.log('player remove'+index)
+        console.log('player remove' + index)
         removeCallback(index)
       }
     })
@@ -66,7 +67,9 @@ class Player {
     if (this.currentIndex == this.playingQueue.length) {
       this.currentIndex = 0
     }
-    this.play()
+    const song = this.playingQueue[this.currentIndex]
+    this.playCb({...song, index: this.currentIndex})
+    // this.play()
   }
   pre() {
     this.currentIndex
@@ -82,6 +85,12 @@ class Player {
     this.updatePlayList()
   }
   play(song) {
+    console.log('song', song)
+    if (song.current) {
+      this.currentIndex = this.playingQueue.length
+    } else if (song.index > -1) {
+      this.currentIndex = song.index
+    }
     const data = song || this.playingQueue[this.currentIndex]
     this.audioElm.src = 'http://' + data.url
     // songName.innerText = data.url ? `当前播放：${data.name}` : `${data.name}没有版权`

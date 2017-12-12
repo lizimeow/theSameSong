@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
         socket.emit('changePlay', curMusic)
     }
     socket.emit('updatePlayingSongs', playQueue)
-
+    console.log(playQueue)
 
     socket.on('disconnect', () => {
         io.emit('onlineUser', --usersNum)
@@ -35,7 +35,6 @@ io.on('connection', (socket) => {
     })
 
     socket.on('submit', async (name) => {
-        // const songList = await crawl(name)
         const qq = new qqCrawl(1, 15)
         const songList = await qq.fetchData(name)
         // console.log(songList)
@@ -43,6 +42,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('play', (e) => {
+        console.log('playe', e)
         curMusic = e
         io.emit('changePlay', e)
     })
