@@ -50,7 +50,7 @@ socket.on('getSearchList', list => {
     mySearchList.initList(list)
 })
 socket.on('changePlay', (data) => {
-    console.log('data111', data)
+    // console.log('data111', data)
     myPlayer.play(data)
 })
 //

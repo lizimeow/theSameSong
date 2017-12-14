@@ -6,6 +6,8 @@ class Player {
     this.audioElm = this.createAudioNode()
     this.rootElm.appendChild(this.audioElm)
     this.playCb = options.liClickCallback
+    this.isChangeLength = false
+    this.currentSong = ''
 
     this._playListNode = this.createPlayListNode(this.playCb, options.removeCallback)
     this.rootElm.appendChild(this._playListNode)
@@ -60,19 +62,29 @@ class Player {
   remove(index) {
     this.playingQueue.splice(index, 1)
     this.updatePlayList()
+    this.isChangeLength = true;
     return true
   }
   next() {
+    if (this.isChangeLength) {
+      this.playingQueue.forEach((v, i) => {
+        if (v.url === this.currentSong.url) {
+          this.currentIndex = i
+        }
+      })
+      this.isChangeLength = false
+    }
     this.currentIndex++
-    if (this.currentIndex == this.playingQueue.length) {
+    if (this.currentIndex >= this.playingQueue.length) {
       this.currentIndex = 0
     }
     const song = this.playingQueue[this.currentIndex]
     this.playCb({...song, index: this.currentIndex})
+    this.currentSong = song
     // this.play()
   }
   pre() {
-    this.currentIndex
+    this.currentIndex--
     this.play()
   }
   clear() {
@@ -92,6 +104,7 @@ class Player {
       this.currentIndex = song.index
     }
     const data = song || this.playingQueue[this.currentIndex]
+    this.currentSong = data
     this.audioElm.src = 'http://' + data.url
     // songName.innerText = data.url ? `当前播放：${data.name}` : `${data.name}没有版权`
     this._nameElement.innerText = data.url ? `当前播放：${data.name}` : `${data.name}没有版权`
