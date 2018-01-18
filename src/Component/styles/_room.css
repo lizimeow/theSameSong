@@ -1,0 +1,98 @@
+.Room {
+    width: 92%;
+    position: relative;
+    margin: 0 auto;
+}
+.header {
+    width: 95%;
+    margin: 10px auto;
+    display: flex;
+}
+.to-home {
+    flex: 1;
+    width: 32px;
+    background: url('./home.png') no-repeat;
+    display: block;
+    background-size: auto 100%;
+}
+.header-info {
+    flex: 2;
+}
+.header-info .name-room {
+    width: 100%;
+    max-width: 170px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.header-info .number-online {
+    font-size: 10px;
+    color: #666;
+}
+.Room .search {
+    margin: 0;
+    flex: 6;
+    /* float: left; */
+}
+
+
+.tip {
+    /* font-size: 24px; */
+    text-align: center;
+    color: #666;
+    margin: 0;
+}
+
+.songlist {
+    position: relative;
+    width: 70%;
+    float: left;
+}
+.list-name {
+    font-size: 16px;
+    vertical-align: middle;
+    color: rgb(3, 142, 160);
+}
+.btn-clear {
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    color: #fff;
+    border-radius: 3px;
+    margin-left: 3px;
+}
+.btn-clear:hover {
+    background: #fff;
+    color: #00B4CC;
+}
+
+
+audio {
+    opacity: 1;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 600px) {
+    .header {
+        width: 100%;
+        margin: 10px auto;
+        display: block;
+    }
+    .header-info {
+        width: 100%;
+        text-align: center;
+    }
+    .header-info .name-room {
+        max-width: 80%;
+    }
+    .search {
+        margin: 10px auto;
+    }
+  }
+  .Myplayer p {
+      text-align: center;
+      font-size: 12px;
+      color: #4a4a4a;
+  }

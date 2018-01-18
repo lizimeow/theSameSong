@@ -48,7 +48,7 @@ class qqCrawl extends crawlMeta {
     async getOneSongUrl(mid) {
         const url = `https://c.y.qq.com/v8/fcg-bin/fcg_play_single_song.fcg?songmid=${mid}&tpl=yqq_song_detail&format=json&callback=getOneSongInfoCallback&g_tk=5381&jsonpCallback=getOneSongInfoCallback&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0`
         // const result = await axios.get(url)
-        const [err, symbol, result] = await timeout(axios.get(url), 3000)
+        const [err, symbol, result] = await timeout(axios.get(url), 6000)
         if (symbol) {
             console.log('getOneSongUrl => timeout')
             getOneSongUrl(uid)

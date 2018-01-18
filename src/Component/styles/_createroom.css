@@ -1,0 +1,69 @@
+
+/* create room*/
+.create {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    font-weight: bolder;
+    -webkit-box-shadow: 1px 1px 3px 1px rgba(170, 170, 170, 0.25);
+    box-shadow: 1px 1px 3px 1px rgba(170, 170, 170, 0.25);
+    background: #00B4CC;
+    border-radius: 30px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.close {
+    color: #fff;
+    background-color: #00B4CC;
+    position: absolute;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+    top: 5px;
+    right: 5px;
+    /* border: 1px solid #00B4CC; */
+    border-radius: 50%;
+    text-align: center;
+}
+
+
+.form-room {
+    width: 100%;
+    margin: 0 auto;
+}
+.form-room label {
+    display: block;
+    margin-bottom: 10px;
+}
+.form-room span {
+    font-size: 10px;
+    color: #00B4CC;
+    width: 50px;
+    display: inline-block;
+}
+.form-room input {
+    border-radius: 3px;
+    font-size: 10px;
+    width: 200px;
+    height: 25px;
+    outline: none;
+    color: #A1A1A4;
+    border: 1px solid #eee;
+}
+.form-room .btn-submit {
+    background-color: #00B4CC;
+    color: #fff;
+    width: 70px;
+    border-radius: 3px;
+    font-size: 10px;
+    height: 25px;
+    line-height: 23px;
+    border: 1px solid #00B4CC;
+}

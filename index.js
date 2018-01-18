@@ -11,7 +11,8 @@ let usersNum = 0
 //保存播放列表
 let playQueue = []
 
-app.use(express.static(__dirname + '/statics'))
+// app.use(express.static(__dirname + '/statics'))
+app.use(express.static(__dirname + '/build'))
 
 app.get('/', (req, res) => {
     res.sendFile('index.html')
@@ -63,6 +64,15 @@ io.on('connection', (socket) => {
     })
     socket.on('clearSearchList', () => {
         io.emit('clearSearchList')
+    })
+
+
+    // 房间
+    socket.on('newRoom', () => {
+        // 保存房间数据
+        // 同步房间数据
+        // 进入房间
+        console.log(123444)
     })
 })
 

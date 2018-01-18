@@ -52,9 +52,10 @@ class Player {
     this._playListNode.innerHTML = str
   }
   add(data) {
-    if (data.current) {
-      this.currentIndex = this.playingQueue.length
-    }
+    // if (data.current) {
+    //   this.currentIndex = this.playingQueue.length
+    //   // data.current = false
+    // }
     this.playingQueue.push(data)
     this.updatePlayList()
     return true
@@ -75,12 +76,12 @@ class Player {
       this.isChangeLength = false
     }
     this.currentIndex++
+    console.log('current:', this.currentIndex)
     if (this.currentIndex >= this.playingQueue.length) {
       this.currentIndex = 0
     }
     const song = this.playingQueue[this.currentIndex]
     this.playCb({...song, index: this.currentIndex})
-    this.currentSong = song
     // this.play()
   }
   pre() {
@@ -100,6 +101,7 @@ class Player {
     console.log('song', song)
     if (song.current) {
       this.currentIndex = this.playingQueue.length
+      song.current = false
     } else if (song.index > -1) {
       this.currentIndex = song.index
     }
