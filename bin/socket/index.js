@@ -24,11 +24,17 @@ module.exports.listen = (http, app) => {
             allData.roomsList[id] = {
                 id,
                 roomName,
-                password,
                 online: 0,
                 curSong: {},
                 playQueue: []
             }
+            allData.commitlist[id] = [] 
+            if (password) {
+                allData.psw[id] = password.trim()
+            } else {
+                allData.roomsList[id].public = true
+            }
+            console.log('createroom=>psw', password)
             socket.emit('createRoom', id)
         })
         // 用户进入房间
@@ -37,17 +43,17 @@ module.exports.listen = (http, app) => {
             if (room) {
                 room.online++
                 io.emit('online', {room, rid: v})
+                console.log('进入id:', v, '人数=>', room.online)
             }
-            console.log('进入id:', v, room.online)
         })
         // 用户离开房间
         socket.on('leaveRoom', (v) => {
             const room = allData.roomsList[v]
             if (room) {
                 room.online--
-                io.emit('online', {room, rid: v})            
+                io.emit('online', {room, rid: v}) 
+                console.log('离开的id:', v, '人数=>', room.online)
             }
-            console.log('离开的id:', v, room.online)
         })
         //搜索音乐
         socket.on('searchSong', async ({name, rid}) => {
@@ -60,6 +66,7 @@ module.exports.listen = (http, app) => {
         // 添加音乐到播放列表
         socket.on('addSong', ({song, rid}) => {
             const room = allData.roomsList[rid]
+            song.index = room.playQueue.length            
             room.playQueue.push(song)
             io.emit('playingListChange', {playingList: room.playQueue, rid})
         })
@@ -83,7 +90,7 @@ module.exports.listen = (http, app) => {
         })
         // 清空搜索列表
         socket.on('clearSearchList', rid => {
-            io.emit('getSearchList', [], rid)
+            io.emit('getSearchList', [], rid, true)
         })
         // 清空播放列表
         socket.on('clearPlayingList', rid => {
@@ -91,14 +98,41 @@ module.exports.listen = (http, app) => {
             room.playQueue = []
             io.emit('playingListChange', {playingList: room.playQueue, rid})
         })
+        // 播放下一首
         socket.on('playNext', ({index, rid}) => {
-            console.log(allData.roomsList[rid])
             const playQueue = allData.roomsList[rid].playQueue
+            if (!playQueue.length) {
+                io.emit('playSong', {curSong: allData.roomsList[rid].curSong, rid})
+                return false                
+            }
+            console.log('que', playQueue)
             if (index >= playQueue.length - 1) {
+                console.log('0=>', playQueue[0])
                 io.emit('playSong', {curSong: playQueue[0], rid})
             } else {
-                io.emit('playSong', {curSong: playQueue[index+1], rid})
+                console.log('index=>',index, playQueue[parseInt(index,10)+1])                
+                io.emit('playSong', {curSong: playQueue[parseInt(index,10)+1], rid})
             }
+        })
+        // 评论
+        socket.on('commit', ({rid, ...info}) => {
+            // console.log(rid, info)
+            const commitlist = allData.commitlist[rid]
+            const curSongName = `${info.curSong.singer}-${info.curSong.name}`
+            const t = new Date()
+            const time = t.toString().slice(0,-15)
+            commitlist.unshift({
+                username: info.username,
+                commit: info.commit,
+                curSongName,
+                time
+            })
+            io.emit('commit', {commitlist, rid})
+        })
+        socket.on('done', ({rid, cls}) => {
+            // let commitlist = allData.commitlist[rid]
+            allData.commitlist[rid] = cls
+            console.log(cls)
         })
     })
 

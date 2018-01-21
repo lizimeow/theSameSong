@@ -11,7 +11,7 @@
 .to-home {
     flex: 1;
     width: 32px;
-    background: url('./home.png') no-repeat;
+    background: url('./images/home.png') no-repeat;
     display: block;
     background-size: auto 100%;
 }
@@ -84,10 +84,14 @@ audio {
         width: 100%;
         text-align: center;
     }
+    .to-home {
+        height: 32px;
+        margin: 0 auto;
+    }
     .header-info .name-room {
         max-width: 80%;
     }
-    .search {
+    .Room .search {
         margin: 10px auto;
     }
   }
@@ -96,3 +100,46 @@ audio {
       font-size: 12px;
       color: #4a4a4a;
   }
+
+
+  /*from*/
+
+
+.form-psw {
+    width: 100%;
+    margin: 0 auto;
+}
+.form-psw label {
+    display: block;
+    margin-bottom: 10px;
+}
+.form-psw span {
+    font-size: 10px;
+    color: #00B4CC;
+    width: 50px;
+    display: inline-block;
+}
+.form-psw p{
+    display: inline-block;
+    font-size: 10px;
+    color: #A1A1A4;
+}
+.form-psw input {
+    border-radius: 3px;
+    font-size: 10px;
+    width: 200px;
+    height: 25px;
+    outline: none;
+    color: #A1A1A4;
+    border: 1px solid #eee;
+}
+.form-psw .btn-submit {
+    background-color: #00B4CC;
+    color: #fff;
+    width: 70px;
+    border-radius: 3px;
+    font-size: 10px;
+    height: 25px;
+    line-height: 23px;
+    border: 1px solid #00B4CC;
+}

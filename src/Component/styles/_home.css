@@ -1,7 +1,10 @@
 .Home {
     margin: 0 auto;
 }
-button:focus { outline:none }
+
+button:focus {
+    outline: none
+}
 
 body {
     /* background: #f2f2f2; */
@@ -10,4 +13,18 @@ body {
 
 .search {
     margin: 20px auto;
+}
+
+@media (max-width: 600px) {
+    .ReactModal__Content.ReactModal__Content--after-open {
+        left: 10px !important;
+        right: 10px !important;
+        padding: 5px !important;
+    }
+    .form-room {
+        margin-top: 20px;
+    }
+    .form-room input {
+        width: 98%;
+    }
 }

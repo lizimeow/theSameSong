@@ -7,6 +7,7 @@ import RoomList from './RoomList'
 import SearchInput from './SearchInput'
 import CreateRoom from './CreateRoom'
 import './styles/_home.css'
+// axios.defaults.baseURL = 'http://192.168.33.249:3002'
 
 class Home extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Home extends Component {
   async init() {
     const result = await axios.get('/rooms')
     const roomsList = Object.values(result.data.roomsList)
-    console.log(roomsList)
+    // console.log(roomsList)
     this.setState({
       roomsList
     })

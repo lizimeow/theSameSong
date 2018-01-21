@@ -24,17 +24,6 @@ const App = () => (
   </Router>
 )
 
-// const Home = () => (
-//   <div>
-//     <h2>Home</h2>
-//   </div>
-// )
-
-// const About = () => (
-//   <div>
-//     <h2>About</h2>
-//   </div>
-// )
 const ErrorPage = () => (
   <div>
     <p>发生了一点小错误, 请返回首页</p>

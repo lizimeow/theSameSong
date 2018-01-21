@@ -86,14 +86,14 @@ class CreateRoom extends React.Component {
               value={this.state.roomName}
               onChange={this.handleChange} />
           </label>
-          {/* <label>
+          <label>
             <span>密码: </span>
             <input type="text"
               name="password"
               placeholder="不输入密码则为公开房间"
               value={this.state.password}
               onChange={this.handleChange} />
-          </label> */}
+          </label>
           <button className="btn-submit" onClick={this.handleSubmit}>确定</button>
         </div>
       )

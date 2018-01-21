@@ -1,0 +1,12 @@
+.Barrage {
+    position: absolute;
+    font-size: 12px;
+    color: #111;
+    background: #fff;
+    z-index: 3;
+    top: -30px;
+    white-space:nowrap;
+}
+.Barrage span {
+    color: #00B4CC;
+}

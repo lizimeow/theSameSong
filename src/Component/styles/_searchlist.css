@@ -9,6 +9,7 @@
 .music button {
     margin: 0 2px;
     border: 1px solid #00B4CC;
+    background: #fff;
     border-radius: 2px;
     color: #4a4a4a;
 }

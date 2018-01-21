@@ -48,6 +48,6 @@
     position: absolute;
     top: 8px;
     left: 10px;
-    background: url('./search.png') no-repeat;
+    background: url('./images/search.png') no-repeat;
     background-size: 100% auto;
 }

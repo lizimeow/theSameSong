@@ -22,6 +22,7 @@ router
     .get('/', (req, res) => {
         res.sendFile('index.html')
     })
+    .post('/login', Controller.login)    
     .get('/room', Controller.searchRoom)
     .post('/room', Controller.addRoom)
     .get('/rooms', Controller.getRooms)
@@ -29,6 +30,8 @@ router
     .get('/error', (req, res) => {
         res.send('aaaaa')
     })
+    .get('/public', Controller.getPublic)
+    .get('/cursong', Controller.getCurSong)
     
 // router
 //     .del('/recruitments/:id', Controller.delActivity)

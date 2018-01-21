@@ -16,14 +16,17 @@ function addRoom(req, res, next) {
 }
 function getRoom(req, res) {
     res.json({
-        room: req.room
+        room: req.room,
+        commitlist: req.commitlist
     });
 }
 function hasRoomData(req, res, next) {
     const room = allData.roomsList[req.params.id]
+    const commitlist = allData.commitlist[req.params.id]
     if (room) {
         // console.log('ID:', req.params.id, allData.roomsList[req.params.id])
          req.room = room
+         req.commitlist = commitlist
          next()
     } else {
         const e = new Error('不存在的房间号' + req.params.id)
@@ -54,6 +57,13 @@ function searchRoom(req, res) {
         })
     }
 }
+function getCurSong(req, res) {
+    const rid = req.query.rid
+    
+}
+function getPublic(req, res) {
+    const rid = req.query.rid
+}
 
 module.exports = {
     addRoom,
@@ -61,4 +71,6 @@ module.exports = {
     getRooms,
     hasRoomData,
     searchRoom,
+    getPublic,
+    getCurSong,
 }

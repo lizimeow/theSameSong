@@ -23,6 +23,7 @@ class qqCrawl extends crawlMeta {
             console.log(err)
         } else {
             const songs = await this.getSongsArray(result.data)
+            // console.log(songs)
             return songs
         }
     }
