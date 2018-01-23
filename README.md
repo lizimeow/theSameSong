@@ -8,17 +8,22 @@
 
 ### 目录
 ```
-├─bin
-│    www       // 后端 服务器
-│    database  // 后端 数据库
-│    socket    // 后端 socket
-|    router    // 后端 路由
-├─sessions     // 后端 session
-├─crawl        // 爬虫
-├─build        // 前端 线上目录
-├─public       
+├─bin            // 后端
+│    app.js      // 后端 服务器
+│    socket      // 后端 socket
+|    router      // 后端 路由
+|    libs        // 工具库
+|    crawl       // 爬虫
+|    controller  // 后端 控制器
+|    config      // 后端  配置文件
+├─build          // 前端 编译之后 线上目录
+├─public         // 前端模板
+├─src            // 前端源码
+│    Component   // 前端组件
+│    App.js      // 前端主路由
+
+
 ├─static       // 旧版前端代码
-├─routes       // 前端 路由
 ├─view         // 前端 页面
 ├─app.js       // 前端 服务器
 ├─package.json
@@ -27,19 +32,8 @@
 ### run
 
 ```
-git clone https://github.com/lizimeow/theSameSong.git // 克隆项目
 cd theSameSong //打开目录
 npm i // 安装依赖
 npm run build // 编译前端代码
-npm run mongod // 开启数据库
 npm run start // 开始运行
 ```
-
-### 功能
-
-- [] 多个房间
-- [] 高并发处理
-- [√] 在线计数
-- [] 样式修改
-- [] 获取更多的的数据并分页
-测试

@@ -15,7 +15,7 @@ class qqCrawl extends crawlMeta {
     async fetchData(name = '孙燕姿') {
         this.url = `https://c.y.qq.com/soso/fcgi-bin/client_search_cp?ct=24&qqmusic_ver=1298&new_json=1&remoteplace=sizer.yqq.song_next&searchid=151387985106450562&t=0&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0&p=${this.curPage}&n=${this.songNum}&w=${this.encode(name)}&g_tk=162512859&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0`
         // const result = await axios.get(this.url)
-        const [err, symbol, result] = await timeout(axios.get(this.url), 3000);
+        const [err, symbol, result] = await timeout(axios.get(this.url), 3000)
         if (symbol) {
             console.log('fetchData => timeout')
             fetchData(name)

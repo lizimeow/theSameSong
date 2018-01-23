@@ -86,6 +86,10 @@ module.exports.listen = (http, app) => {
         socket.on('removeSong', ({song, rid}) => {
             const room = allData.roomsList[rid]
             room.playQueue.splice(song.index, 1)
+            room.playQueue = room.playQueue.map((v, i) => {
+                v.index = i
+                return v
+            })
             io.emit('playingListChange', {playingList: room.playQueue, rid})
         })
         // 清空搜索列表
