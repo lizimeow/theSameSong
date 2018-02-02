@@ -10,7 +10,7 @@ import SearchList from './SearchList'
 import PlayingList from './PlayingList'
 import Commit from './Commit'
 import CommitList from './CommitList'
-import Barrage from './Barrage'
+// import Barrage from './Barrage'
 
 import './styles/_room.css'
 import './styles/plyroverride.css'
@@ -311,7 +311,7 @@ class Room extends Component {
           <Link to='/' className="to-home"></Link>
           <div className="header-info">
             <span className="name-room">{this.state.room.roomName}</span>
-            <div className="number-online">当前在线人数:{this.state.room.online}</div>
+            {/* <div className="number-online">当前在线人数:{this.state.room.online}</div> */}
           </div>
           <SearchInput
             search={this.search.bind(this)}
@@ -360,10 +360,10 @@ class Room extends Component {
           <div className="close"><Link to="/">X</Link></div>
         </ReactModal>
 
-        <Barrage
+        {/* <Barrage
           animationDone={this.animationDone.bind(this)}
           done={this.done.bind(this)}
-          barrage={this.state.barrage}></Barrage>
+          barrage={this.state.barrage}></Barrage> */}
 
       </div>
     )

@@ -15,7 +15,7 @@ class RoomList extends React.Component {
         <div className="room-info">
           <p className="room-name">{rest.roomName}</p>
           <p className="room-des"> 房间号:{id}</p>
-          <p className="room-des">online:{rest.online}</p>
+          {/* <p className="room-des">online:{rest.online}</p> */}
           <p className="room-des">正在播放:{curSong.singer}-{curSong.name}</p>
         </div>
 
