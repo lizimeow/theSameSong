@@ -16,7 +16,7 @@ class CommitList extends Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <div className="CommitList">
                 <p className="cl-title">聊天区</p>

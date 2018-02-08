@@ -211,7 +211,14 @@ class Room extends Component {
     // 删除&添加都会导致播放列表改变
     socket.on('playingListChange', ({ playingList, rid }) => {
       if (rid === this.state.room.id) {
+        const curSong = this.state.curSong
         this.setState({ playingList })
+        for (let v of playingList) {
+          if (curSong.url === v.url && v.index !== curSong.index) {
+            this.setState({ curSong: v })
+            break
+          }
+        }
       }
     })
     // 播放歌曲

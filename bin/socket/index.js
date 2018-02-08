@@ -102,6 +102,9 @@ module.exports.listen = (http, app) => {
             room.playQueue.splice(song.index, 1)
             room.playQueue = room.playQueue.map((v, i) => {
                 v.index = i
+                if (room.curSong.url === v.url) {
+                    room.curSong = v
+                }
                 return v
             })
             io.emit('playingListChange', {playingList: room.playQueue, rid})
