@@ -17,7 +17,18 @@ class Home extends Component {
     }
   }
   componentDidMount() {
-    this.init()
+    const io = require('socket.io-client')
+    const socket = io()
+    socket.emit('getrooms')
+    socket.on('getrooms', roomsList => {
+      socket.disconnect()
+      const list = Object.values(roomsList)
+      console.log('list', list)
+      this.setState({
+        roomsList: list
+      })
+    })
+    // this.init()
   }
   async init() {
     const result = await axios.get('/rooms')
@@ -37,7 +48,7 @@ class Home extends Component {
   }
 
   render() {
-    return (<div className="Home">
+      return (<div className="Home">
       <SearchInput
         search={this.search.bind(this)}
         placeholder={'搜索: 房间名 or 房间号'}></SearchInput>

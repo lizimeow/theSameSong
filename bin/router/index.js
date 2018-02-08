@@ -30,7 +30,7 @@ router
     .get('/error', (req, res) => {
         res.send('aaaaa')
     })
-    .get('/public', Controller.getPublic)
+    .get('/public/:id', Controller.getPublic)
     .get('/cursong', Controller.getCurSong)
     
 // router

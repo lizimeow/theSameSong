@@ -37,15 +37,29 @@ module.exports.listen = (http, app) => {
             console.log('createroom=>psw', password)
             socket.emit('createRoom', id)
         })
+        socket.on('getrooms', v => {
+            // console.log('getrooms', allData.roomsList)
+            io.emit('getrooms', allData.roomsList)            
+        })
+        socket.on('isPublic', v => {
+            const room = allData.roomsList[v]
+            if (room) {
+                io.emit('isPublic', {roomName: room.roomName, ispublic: room.public, rid: v})
+                console.log('是否为公开房间', room.public)
+            }
+        })
         // 用户进入房间
         socket.on('initRoom', (v) => {
             const room = allData.roomsList[v]
+            const commitlist = allData.commitlist[v]
             if (room) {
                 room.online++
                 io.emit('online', {room, rid: v})
+                socket.emit('initRoom', {room, commitlist})
                 console.log('进入id:', v, '人数=>', room.online)
             }
         })
+        
         // 用户离开房间
         socket.on('leaveRoom', (v) => {
             const room = allData.roomsList[v]
@@ -104,18 +118,22 @@ module.exports.listen = (http, app) => {
         })
         // 播放下一首
         socket.on('playNext', ({index, rid}) => {
+            const room = allData.roomsList[rid]
             const playQueue = allData.roomsList[rid].playQueue
             if (!playQueue.length) {
-                io.emit('playSong', {curSong: allData.roomsList[rid].curSong, rid})
+                io.emit('playSong', {curSong: allData.roomsList[rid].curSong, rid})                
                 return false                
             }
-            console.log('que', playQueue)
+            // console.log('que', playQueue)
             if (index >= playQueue.length - 1) {
                 console.log('0=>', playQueue[0])
+                room.curSong = playQueue[0] 
                 io.emit('playSong', {curSong: playQueue[0], rid})
             } else {
-                console.log('index=>',index, playQueue[parseInt(index,10)+1])                
-                io.emit('playSong', {curSong: playQueue[parseInt(index,10)+1], rid})
+                const song = playQueue[parseInt(index,10)+1]
+                console.log('index=>', index, song)                
+                room.curSong = song
+                io.emit('playSong', {curSong: song, rid})
             }
         })
         // 评论

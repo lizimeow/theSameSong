@@ -33,15 +33,15 @@ class Myplayer extends Component {
   }
   render() {
     let index = '',
-    singer = '',
-    url = '',
-    name = '';
+      singer = '',
+      url = '',
+      name = '';
     if (this.props.curSong) {
       index = this.props.curSong.index
       singer = this.props.curSong.singer
       name = this.props.curSong.name
       url = this.props.curSong.url ? '//' + this.props.curSong.url : ''
-    } 
+    }
     // else {
     //   index = this.state.curSong.index || 0
     //   singer = this.state.curSong.singer
@@ -50,7 +50,7 @@ class Myplayer extends Component {
     // }
     return (
       <div className="Myplayer">
-        <p>当前正在播放{index===-1?0:index} - {singer} - {name}</p>
+        <p>当前正在播放{index === -1 ? 0 : index} - {singer} - {name}</p>
         {/* <audio id="audio" ref="audio" autoPlay controls>
           <source src={this.props.curSong.url ? '//' + this.props.curSong.url : ''} type="audio/mp3" />
         </audio> */}
@@ -75,22 +75,39 @@ class PswForm extends Component {
       roomName: ''
     }
     // this.props.closeModal()
-    this.init(roomId)
+    // this.init(roomId)
+    socket.emit('isPublic', roomId)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  async init(roomId) {
-    const result = await axios.get(`/room/${roomId}`)
-    console.log('pswForm => room', result.data.room)
-    this.setState({ roomName: result.data.room.roomName })
-    if (result.data.room.public) {
-      this.props.closeModal()
-    } else {
-      const lrid = localStorage.getItem('roomId')
-      if (lrid === roomId) {
-        this.props.closeModal()
+  componentDidMount() {
+    socket.on('isPublic', ({ roomName, ispublic, rid }) => {
+      
+      if (rid === this.state.roomId) {
+        this.setState({ roomName })
+        if (ispublic) {
+          this.props.closeModal()
+        } else {
+          const lrid = localStorage.getItem('roomId')
+          if (lrid === this.state.roomId) {
+            this.props.closeModal()
+          }
+        }
       }
-    }
+    })
+  }
+  async init(roomId) {
+    // const result = await axios.get(`/room/${roomId}`)
+    // console.log('pswForm => room', result.data.room)
+    // this.setState({ roomName: result.data.room.roomName })
+    // if (result.data.room.public) {
+    //   this.props.closeModal()
+    // } else {
+    //   const lrid = localStorage.getItem('roomId')
+    //   if (lrid === roomId) {
+    //     this.props.closeModal()
+    //   }
+    // }
   }
 
   handleChange(event) {
@@ -166,7 +183,9 @@ class Room extends Component {
     }
   }
   componentDidMount() {
-    this.init()
+    // this.init()
+    const roomId = window.location.pathname.match(/\/room\/(.*?)(\/|$)/)[1]
+    socket.emit('initRoom', roomId)
     // 获取搜索列表
     socket.on('getSearchList', (list, rid, clear = false) => {
       if (rid === this.state.room.id) {
@@ -223,34 +242,19 @@ class Room extends Component {
         })
       }
     })
+    socket.on('initRoom', ({room, commitlist}) => {
+      this.setState({
+        room: room,
+        curSong: room.curSong,
+        playingList: room.playQueue,
+        commitlist: commitlist
+      })
+    })
   }
   componentWillUnmount() {
     if (!this.state.showModal) {
       socket.emit('leaveRoom', this.state.room.id)
     }
-  }
-  async init() {
-    const roomId = window.location.pathname.match(/\/room\/(.*?)(\/|$)/)[1]
-    socket.emit('initRoom', roomId)
-    // 获取该房间数据
-    const result = await axios.get(`/room/${roomId}`)
-    /* test */
-    //  const room = {
-    //   id: 1,
-    //   roomName: '房间名233',
-    //   online: 1,
-    //   curSong: {},
-    //   playQueue: []
-    // }
-    // this.setState({room})
-    /* test */
-    // console.log('result', result.data.room)
-    this.setState({
-      room: result.data.room,
-      curSong: result.data.room.curSong,
-      playingList: result.data.room.playQueue,
-      commitlist: result.data.commitlist
-    })
   }
 
   search(name) {
@@ -298,7 +302,7 @@ class Room extends Component {
     // this.setState({commitlist: cls})
   }
   animationDone() {
-    this.setState({barrage:{}})
+    this.setState({ barrage: {} })
   }
 
   render() {

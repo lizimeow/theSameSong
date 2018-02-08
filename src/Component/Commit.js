@@ -20,8 +20,8 @@ class Commit extends Component {
     commit() {
         const {username, commit} = this.state
         if (username) {
-            if (username.length < 2) {
-                alert('用户名要大于两个字符哦~')
+            if (username.length < 1) {
+                alert('用户名要大于1个字符哦~')
                 return false
             } else {
                 localStorage.setItem('username', username)

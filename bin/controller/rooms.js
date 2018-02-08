@@ -62,7 +62,10 @@ function getCurSong(req, res) {
     
 }
 function getPublic(req, res) {
-    const rid = req.query.rid
+    const room = allData.roomsList[req.params.id]   
+    res.json({
+        public: room.public 
+    })
 }
 
 module.exports = {
