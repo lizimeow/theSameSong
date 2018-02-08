@@ -30,14 +30,14 @@ class Home extends Component {
     })
     // this.init()
   }
-  async init() {
-    const result = await axios.get('/rooms')
-    const roomsList = Object.values(result.data.roomsList)
-    // console.log(roomsList)
-    this.setState({
-      roomsList
-    })
-  }
+  // async init() {
+  //   const result = await axios.get('/rooms')
+  //   const roomsList = Object.values(result.data.roomsList)
+  //   // console.log(roomsList)
+  //   this.setState({
+  //     roomsList
+  //   })
+  // }
 
   // 查找房间  
   async search(value) {

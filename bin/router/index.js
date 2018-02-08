@@ -25,8 +25,8 @@ router
     .post('/login', Controller.login)    
     .get('/room', Controller.searchRoom)
     .post('/room', Controller.addRoom)
-    .get('/rooms', Controller.getRooms)
-    .get('/room/:id', Controller.hasRoomData, Controller.getRoom)
+    // .get('/rooms', Controller.getRooms)
+    // .get('/room/:id', Controller.hasRoomData, Controller.getRoom)
     .get('/error', (req, res) => {
         res.send('aaaaa')
     })

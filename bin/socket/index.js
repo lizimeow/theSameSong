@@ -2,7 +2,7 @@ const shortid = require('shortid')
 const allData = require('./data')
 const socketio = require('socket.io')
 const qqCrawl = require('../crawl/qqCrawl')
-const session = require('express-session')
+// const session = require('express-session')
 const cookie = require("cookie")
 
 module.exports.listen = (http, app) => {

@@ -16,9 +16,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "classnames": "^2.2.5",
-    "cors": "^2.8.4",
     "express": "^4.16.2",
-    "express-session": "^1.15.6",
     "mongodb": "^3.0.1",
     "mongorito": "^3.0.4",
     "plyr": "^2.0.18",
